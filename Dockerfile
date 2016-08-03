@@ -9,7 +9,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
     echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list && \
     apt-get update && \
     apt-get install -y --force-yes \
-    postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 && \
+    postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 runit && \
     service postgresql stop && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 

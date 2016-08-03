@@ -25,4 +25,4 @@ fi
 
 # Start PostgreSQL
 echo "Starting PostgreSQL..."
-sudo -u postgres /usr/lib/postgresql/9.4/bin/postgres -D $DATA_DIR
+exec chpst sudo -u postgres /usr/lib/postgresql/9.4/bin/postgres -D $DATA_DIR
