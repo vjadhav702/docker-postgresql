@@ -1,5 +1,5 @@
-FROM frodenas/ubuntu
-MAINTAINER Ferran Rodenas <frodenas@gmail.com>
+FROM srinivasachalla/docker-ubuntu
+MAINTAINER Srinivasa Reddy Challa <srinivasa.challa@sap.com>
 
 # Install PostgreSQL 9.4
 RUN DEBIAN_FRONTEND=noninteractive \
