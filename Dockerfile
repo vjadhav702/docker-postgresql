@@ -17,7 +17,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ## remove wget
-RUN apt-get remove wget
+RUN apt-get remove wget -y
 
 # Add scripts
 ADD scripts /scripts
