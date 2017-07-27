@@ -1,5 +1,8 @@
-FROM frodenas/ubuntu
-MAINTAINER Ferran Rodenas <frodenas@gmail.com>
+FROM srinivasachalla/docker-ubuntu
+MAINTAINER Srinivasa Reddy Challa <srinivasa.challa@sap.com>
+
+## Install wget
+RUN apt-get install wget
 
 # Install PostgreSQL 9.4
 RUN DEBIAN_FRONTEND=noninteractive \
@@ -12,6 +15,9 @@ RUN DEBIAN_FRONTEND=noninteractive \
     postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 runit && \
     service postgresql stop && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+## remove wget
+RUN apt-get remove wget -y
 
 # Add scripts
 ADD scripts /scripts
