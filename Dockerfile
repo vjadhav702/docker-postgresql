@@ -1,5 +1,5 @@
 FROM srinivasachalla/docker-ubuntu
-MAINTAINER Srinivasa Reddy Challa <srinivasa.challa@sap.com>
+MAINTAINER Sunidhi Sharma <sunidhi.sharma@sap.com>
 
 ## Install wget
 RUN apt-get install wget
