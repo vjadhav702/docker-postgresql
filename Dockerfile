@@ -28,7 +28,6 @@ RUN apt-get remove wget -y
 RUN apt-get update && \
     apt-get install -y --force-yes runit
 
-ENV PATH="/usr/lib/postgresql/9.4/bin:${PATH}"
 
 # Add scripts
 ADD scripts /scripts

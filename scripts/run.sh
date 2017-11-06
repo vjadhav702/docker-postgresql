@@ -10,11 +10,12 @@ export POSTGRESQL_USER=postgres
 touch /home/${POSTGRESQL_USER}/.bashrc
 chown ${POSTGRESQL_USER}:${POSTGRESQL_USER} /home/${POSTGRESQL_USER}/.bashrc
 
+
 if [ ! -f "$DATA_DIR"/postgresql.conf ]; then
     mkdir -p "$DATA_DIR"
     chown postgres:postgres "$DATA_DIR"
 
-    sudo -u postgres /usr/lib/postgresql/9.4/bin/initdb -E utf8 --locale en_US.UTF-8 -D "$DATA_DIR"
+    sudo -i -u postgres /usr/lib/postgresql/9.4/bin/initdb -E utf8 --locale en_US.UTF-8 -D "$DATA_DIR"
     sed -i -e"s/^#listen_addresses =.*$/listen_addresses = '*'/" $DATA_DIR/postgresql.conf
     echo  "shared_preload_libraries='pg_stat_statements'">> "$DATA_DIR"/postgresql.conf
     echo "host    all    all    0.0.0.0/0    md5" >> "$DATA_DIR"/pg_hba.conf
@@ -34,6 +35,6 @@ cd /data/postgres
 
 # Start PostgreSQL
 echo "Starting PostgreSQL..."
-exec chpst sudo -u postgres /usr/lib/postgresql/9.4/bin/postgres -D "$DATA_DIR"
+exec chpst sudo -i -u postgres /usr/lib/postgresql/9.4/bin/postgres -D "$DATA_DIR"
 #sudo -u postgres /usr/lib/postgresql/9.4/bin/postgres -D "$DATA_DIR"
 #sudo -u postgres /usr/lib/postgresql/9.4/bin/pg_ctl -D /data/postgres -l logfile start
