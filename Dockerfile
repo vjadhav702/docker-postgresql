@@ -16,7 +16,6 @@ RUN DEBIAN_FRONTEND=noninteractive \
     apt-get install libssl-dev -y && \
     apt-get install libreadline6 libreadline6-dev && \
     apt-get install libxml2-dev -y && \
-    apt-get install -y --force-yes runit && \
     mkdir -p /usr/lib/postgresql/9.4/ && \
     ./configure --with-openssl --with-libxml --prefix=/usr/lib/postgresql/9.4/ && \
     export CPUS=$(grep -c ^processor /proc/cpuinfo) && \

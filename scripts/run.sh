@@ -34,6 +34,6 @@ cd /data/postgres
 
 # Start PostgreSQL
 echo "Starting PostgreSQL..."
-exec chpst sudo -u postgres /usr/lib/postgresql/9.4/bin/postgres -D "$DATA_DIR"
-#sudo -u postgres /usr/lib/postgresql/9.4/bin/postgres -D "$DATA_DIR"
+#exec chpst sudo -u postgres /usr/lib/postgresql/9.4/bin/postgres -D "$DATA_DIR"
+sudo -u postgres /usr/lib/postgresql/9.4/bin/postgres -D "$DATA_DIR"
 #sudo -u postgres /usr/lib/postgresql/9.4/bin/pg_ctl -D /data/postgres -l logfile start
