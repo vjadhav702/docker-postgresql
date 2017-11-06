@@ -8,14 +8,14 @@ DATA_DIR=/data/postgres
 
 #cd /var/lib/postgresql
 # Start PostgreSQL service
-sudo -u postgres /usr/lib/postgresql/9.4/bin/postgres -D $DATA_DIR &
+sudo -i -u postgres /usr/lib/postgresql/9.4/bin/postgres -D $DATA_DIR &
 
-while ! sudo -u postgres /usr/lib/postgresql/9.4/bin/psql -q -c "select true;"; do sleep 1; done
+while ! sudo -i -u postgres psql -q -c "select true;"; do sleep 1; done
 
 # Create user
 echo "Creating user: \"$USER\"..."
-sudo -u postgres /usr/lib/postgresql/9.4/bin/psql -q -c "DROP ROLE IF EXISTS \"$USER\";"
-sudo -u postgres /usr/lib/postgresql/9.4/bin/psql -q <<-EOF
+sudo -i -u postgres psql -q -c "DROP ROLE IF EXISTS \"$USER\";"
+sudo -i -u postgres psql -q <<-EOF
     CREATE ROLE "$USER" WITH ENCRYPTED PASSWORD '$PASS';
     ALTER ROLE "$USER" WITH ENCRYPTED PASSWORD '$PASS';
     ALTER ROLE "$USER" WITH LOGIN;
@@ -26,7 +26,7 @@ EOF
 # Create dabatase
 if [ ! -z "$DB" ]; then
     echo "Creating database: \"$DB\"..."
-    sudo -u postgres /usr/lib/postgresql/9.4/bin/psql -q <<-EOF
+    sudo -i -u postgres psql -q <<-EOF
     CREATE DATABASE "$DB" WITH OWNER="$USER" ENCODING='UTF8';
     GRANT ALL ON DATABASE "$DB" TO "$USER"
 EOF
@@ -34,13 +34,13 @@ EOF
     if [[ ! -z "$EXTENSIONS" ]]; then
         for extension in $EXTENSIONS; do
             echo "Installing extension \"$extension\" for database \"$DB\"..."
-            sudo -u postgres /usr/lib/postgresql/9.4/bin/psql -q "$DB" -c "CREATE EXTENSION \"$extension\";"
+            sudo -i -u postgres psql -q "$DB" -c "CREATE EXTENSION \"$extension\";"
         done
     fi
 fi
 
 # Stop PostgreSQL service
-sudo -u postgres /usr/lib/postgresql/9.4/bin/pg_ctl stop -m fast -w -D $DATA_DIR
+sudo -i -u postgres /usr/lib/postgresql/9.4/bin/pg_ctl stop -m fast -w -D $DATA_DIR
 
 echo "========================================================================"
 echo "PostgreSQL User: \"$USER\""

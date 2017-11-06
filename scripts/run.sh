@@ -6,11 +6,8 @@
 DATA_DIR=/data/postgres
 
 export POSTGRESQL_USER=postgres
-
 /usr/sbin/adduser       --system       --group       --shell /bin/bash       --disabled-password       --home /home/${POSTGRESQL_USER} ${POSTGRESQL_USER}       --gecos "Dedicated pguser user"
-
 touch /home/${POSTGRESQL_USER}/.bashrc
-
 chown ${POSTGRESQL_USER}:${POSTGRESQL_USER} /home/${POSTGRESQL_USER}/.bashrc
 
 if [ ! -f "$DATA_DIR"/postgresql.conf ]; then
@@ -37,5 +34,6 @@ cd /data/postgres
 
 # Start PostgreSQL
 echo "Starting PostgreSQL..."
-sudo -u postgres /usr/lib/postgresql/9.4/bin/postgres -D "$DATA_DIR"
+exec chpst sudo -u postgres /usr/lib/postgresql/9.4/bin/postgres -D "$DATA_DIR"
+#sudo -u postgres /usr/lib/postgresql/9.4/bin/postgres -D "$DATA_DIR"
 #sudo -u postgres /usr/lib/postgresql/9.4/bin/pg_ctl -D /data/postgres -l logfile start
