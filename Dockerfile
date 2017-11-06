@@ -22,7 +22,9 @@ RUN DEBIAN_FRONTEND=noninteractive \
     make -j${CPUS} world && make install-world && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ENV PATH="/usr/lib/postgresql/9.4/bin:${PATH}"
+#ENV PATH "/usr/lib/postgresql/9.4/bin:${PATH}"
+
+RUN apt-get install runit -y
 
 ## remove wget
 RUN apt-get remove wget -y
