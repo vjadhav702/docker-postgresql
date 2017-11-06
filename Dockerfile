@@ -25,7 +25,8 @@ RUN DEBIAN_FRONTEND=noninteractive \
 ## remove wget
 RUN apt-get remove wget -y
 
-RUN apt-get install runit -y
+RUN apt-get update && \
+    apt-get install -y --force-yes runit
 
 ENV PATH="/usr/lib/postgresql/9.4/bin:${PATH}"
 
