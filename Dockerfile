@@ -7,7 +7,7 @@ RUN apt-get update && \
 
 #ENV CPUS $(grep -c ^processor /proc/cpuinfo)
 
-##Install PostgreSQL 9.4
+# Install PostgreSQL 9.4
 RUN DEBIAN_FRONTEND=noninteractive \
     cd /tmp && \
     wget https://ftp.postgresql.org/pub/source/v9.4.14/postgresql-9.4.14.tar.gz && \
@@ -21,10 +21,6 @@ RUN DEBIAN_FRONTEND=noninteractive \
     export CPUS=$(grep -c ^processor /proc/cpuinfo) && \
     make -j${CPUS} world && make install-world && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-#ENV PATH "/usr/lib/postgresql/9.4/bin:${PATH}"
-
-#RUN apt-get install runit -y
 
 ## remove wget
 RUN apt-get remove wget -y
@@ -43,3 +39,4 @@ EXPOSE 5432
 
 # Expose our data directory
 VOLUME ["/data"]
+
