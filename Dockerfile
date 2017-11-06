@@ -7,7 +7,7 @@ RUN apt-get update && \
 
 #ENV CPUS $(grep -c ^processor /proc/cpuinfo)
 
-# Install PostgreSQL 9.4
+## Install PostgreSQL 9.4
 RUN DEBIAN_FRONTEND=noninteractive \
     cd /tmp && \
     wget https://ftp.postgresql.org/pub/source/v9.4.14/postgresql-9.4.14.tar.gz && \
