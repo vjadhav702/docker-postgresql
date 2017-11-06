@@ -1,7 +1,7 @@
 FROM srinivasachalla/docker-ubuntu
 MAINTAINER Sunidhi Sharma <sunidhi.sharma@sap.com>
 
-# Install wget
+## Install wget
 RUN apt-get update && \
     apt-get install wget
 
