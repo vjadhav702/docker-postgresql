@@ -2,22 +2,31 @@ FROM srinivasachalla/docker-ubuntu
 MAINTAINER Sunidhi Sharma <sunidhi.sharma@sap.com>
 
 # Install wget
-RUN apt-get install wget
+RUN apt-get update && \
+    apt-get install wget
 
 # Install PostgreSQL 9.4
 RUN DEBIAN_FRONTEND=noninteractive \
     cd /tmp && \
-    wget https://www.postgresql.org/media/keys/ACCC4CF8.asc && \
-    apt-key add ACCC4CF8.asc && \
-    echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list && \
-    apt-get update && \
-    apt-get install -y --force-yes \
-    postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 runit && \
-    service postgresql stop && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    wget https://ftp.postgresql.org/pub/source/v9.4.14/postgresql-9.4.14.tar.gz && \
+    tar xfv postgresql-9.4.14.tar.gz && \
+    cd postgresql-9.4.14 && \
+    apt-get install libssl-dev -y && \
+    apt-get install libreadline6 libreadline6-dev && \
+    apt-get install libxml2-dev -y && \
+    mkdir -p /usr/lib/postgresql/9.4/ && \
+    ./configure --with-openssl --with-libxml --prefix=/usr/lib/postgresql/9.4/ && \
+    export CPUS=$(grep -c ^processor /proc/cpuinfo) && \
+    make -j${CPUS} world && make install-world && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-## remove wget
+# Remove wget
 RUN apt-get remove wget -y
+
+# Install runit
+RUN apt-get update && \
+    apt-get install -y --force-yes runit
+
 
 # Add scripts
 ADD scripts /scripts
@@ -33,3 +42,4 @@ EXPOSE 5432
 
 # Expose our data directory
 VOLUME ["/data"]
+
