@@ -5,7 +5,7 @@ MAINTAINER Sunidhi Sharma <sunidhi.sharma@sap.com>
 RUN apt-get update && \
     apt-get install wget
 
-# Install PostgreSQL 9.4
+## Install PostgreSQL 9.4
 RUN DEBIAN_FRONTEND=noninteractive \
     cd /tmp && \
     wget https://ftp.postgresql.org/pub/source/v9.4.15/postgresql-9.4.15.tar.gz && \
