@@ -8,9 +8,9 @@ RUN apt-get update && \
 # Install PostgreSQL 9.4
 RUN DEBIAN_FRONTEND=noninteractive \
     cd /tmp && \
-    wget https://ftp.postgresql.org/pub/source/v9.4.14/postgresql-9.4.14.tar.gz && \
-    tar xfv postgresql-9.4.14.tar.gz && \
-    cd postgresql-9.4.14 && \
+    wget https://ftp.postgresql.org/pub/source/v9.4.15/postgresql-9.4.15.tar.gz && \
+    tar xfv postgresql-9.4.15.tar.gz && \
+    cd postgresql-9.4.15 && \
     apt-get install libssl-dev -y && \
     apt-get install libreadline6 libreadline6-dev && \
     apt-get install libxml2-dev -y && \
@@ -42,4 +42,3 @@ EXPOSE 5432
 
 # Expose our data directory
 VOLUME ["/data"]
-
